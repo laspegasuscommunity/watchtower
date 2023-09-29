@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  #Это конфигурация Docker Compose для запуска системы обновления контейнеров Watchtower.
+  watchtower:
+    container_name: watchtower
+    deploy:
+      restart_policy:
+        condition: always
+        delay: 5s
+    env_file:
+      - "watchtower.env"
+    image: containrrr/watchtower
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+networks:
+  default:
+    external: true
+    name: $NETWORK
